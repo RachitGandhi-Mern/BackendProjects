@@ -24,7 +24,11 @@ exports.Signup = async (req, res) => {
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    res.cookie("Token", token, { httpOnly: true, sameSite: "none" });
+    res.cookie("Token", token,{
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+});
     res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -50,11 +54,12 @@ exports.login = async (req, res) => {
     if (!ispassword) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
     res.cookie("Token", token, {
-      httpOnly: true,
-      sameSite: "none",
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+});
     res.status(200).json({ message: "User LoggedIn Successfully",user});
   } catch (error) {
     res.status(500).json({ message: "Server error" });
