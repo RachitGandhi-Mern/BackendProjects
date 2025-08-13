@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.use(
   cors({
-    origin: "https://dev-trail-chi.vercel.app/",
+    origin: "https://dev-trail-chi.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
     allowedHeaders: ["Content-Type", "Authorization"],
