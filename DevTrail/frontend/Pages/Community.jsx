@@ -17,7 +17,6 @@ const Community = ({ darkMode }) => {
 
     try {
       const response = await API.get("/api/entries/getenrites");
-      console.log(response);
 
       // Filter only public entries
       const publicEntries = (response.data.data || []).filter(
