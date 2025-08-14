@@ -36,6 +36,7 @@ exports.Signup = async (req, res) => {
         username: newUser.username,
         Fullname: newUser.Fullname,
       },
+      token 
     });
   } catch (error) {
     console.error("Signup Error:", error);
@@ -60,7 +61,7 @@ exports.login = async (req, res) => {
   secure: true,
   sameSite: "none"
 });
-    res.status(200).json({ message: "User LoggedIn Successfully",user});
+    res.status(200).json({ message: "User LoggedIn Successfully",user, token });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

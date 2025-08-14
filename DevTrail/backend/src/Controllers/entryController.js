@@ -4,7 +4,6 @@ const GenerateDisc = require("../Services/ai.service");
 exports.entryIn = async (req, res) => {
   try {
     const { displayname, content, isPublic, tags } = req.body;
-    console.log(content, isPublic, tags);
     const disc = await GenerateDisc(content);
     const newentry = await entryModel.create({
       displayname,
