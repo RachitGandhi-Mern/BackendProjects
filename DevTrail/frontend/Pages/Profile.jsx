@@ -30,6 +30,7 @@ const Profile = ({ darkMode }) => {
     setLoggingOut(true);
     try {
       await API.get("/api/auth/logout");
+      localStorage.removeItem("token")
       setUser(null);
       setError("");
       navigate("/login"); // redirect to login after logout
