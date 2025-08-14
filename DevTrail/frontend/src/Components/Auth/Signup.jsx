@@ -27,7 +27,7 @@ const Signup = ({ darkMode }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        "https://backendprojects-9fw1.onrender.com/api/auth/signup",
         formData,
         { withCredentials: true }
       );
