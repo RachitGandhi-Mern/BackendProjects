@@ -9,10 +9,10 @@ const upload = multer({
   limits: { fileSize: 50 * 1024 * 1024 } // 50MB
 });
 
-export const uploadMiddleware = upload.single("file");
+exports.uploadMiddleware = upload.single("file");
 
 
-export const uploadFile = asyncHandler(async (req, res) => {
+exports.uploadFile = asyncHandler(async (req, res) => {
   if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
   const gfs = getGFS();
@@ -22,7 +22,7 @@ export const uploadFile = asyncHandler(async (req, res) => {
     "application/octet-stream";
 
   const uploadStream = gfs.openUploadStream(req.file.originalname, {
-    contentType,
+    contentType:req.file.mimetype,
     metadata: { userId: req.user._id.toString() }
   });
 
@@ -33,18 +33,17 @@ export const uploadFile = asyncHandler(async (req, res) => {
   });
 
   uploadStream.on("finish", (file) => {
-    res.status(201).json({
-      fileId: file._id,
-      filename: file.filename,
-      contentType: file.contentType,
-      length: file.length,
-      uploadDate: file.uploadDate
-    });
+  res.status(201).json({
+    fileId: file._id,               
+    filename: file.filename,       
+    contentType: file.contentType,  
+    metadata: file.metadata         
   });
+});
 });
 
 
-export const downloadFile = asyncHandler(async (req, res) => {
+exports.downloadFile = asyncHandler(async (req, res) => {
   const gfs = getGFS();
   const fileId = new mongoose.Types.ObjectId(req.params.id);
 

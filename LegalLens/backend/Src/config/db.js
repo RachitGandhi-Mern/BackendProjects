@@ -13,19 +13,18 @@ async function ConnectTODB() {
     const connection = await mongoose.connect(process.env.MONGODB_URI, {
       maxPoolSize: 20,
     });
-
-    GFSBucket = new GridFSBucket(connection.connection.db, {
-      bucketName: "documents",
-    });
-
-    console.log("✅ MongoDB connected & GridFS bucket ready");
+    
+      GFSBucket = new GridFSBucket(connection.connection.db, {
+        bucketName: "uploads", 
+      });
+      console.log("✅ MongoDB connected & GridFS bucket ready");
   } catch (err) {
     console.error("❌ MongoDB connection failed:", err.message);
     process.exit(1);
   }
 }
 
-async function getGFS() {
+ function getGFS() {
   if (!GFSBucket) {
     throw new Error("GridFS not initialized yet");
   }

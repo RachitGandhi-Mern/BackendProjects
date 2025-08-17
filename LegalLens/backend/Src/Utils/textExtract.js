@@ -1,11 +1,11 @@
-const getGFS = require('../config/db')
+const {getGFS} = require('../config/db')
 const mongoose = require('mongoose')
 const pdfParse = require('pdf-parse')
 const mammoth = require('mammoth')
 const mime = require('mime-types')
 
 const bufferFromStream = (stream) =>
-    new Promise((res , rej) =>{
+    new Promise((resolve , reject) =>{
       const chunks = []
       stream.on('data',(d)=> chunks.push(d));
       stream.on('error',reject);
@@ -21,9 +21,9 @@ const bufferFromStream = (stream) =>
 };
     
 
-export const extractTextFromGridFS = async (fileId) => {
+exports.extractTextFromGridFS = async (fileId) => {
   const gfs = getGFS();
-  const fileMeta = await getFileMetadata(fileId);
+  const fileMeta = await exports.getFileMetadata(fileId);
 
   const downloadStream = gfs.openDownloadStream(fileMeta._id);
   const fileBuffer = await bufferFromStream(downloadStream);

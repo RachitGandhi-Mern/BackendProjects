@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const { asyncHandler } = require("../Middleware/asyncHandler.js");
 const { extractTextFromGridFS } = require("../Utils/textExtract.js");
-const Analysis = require("../models/analysis.model.js");
+const Analysis = require("../Model/analysis.model.js");
 const { analyzeText } = require("../Services/ai.service.js");
 
 
-export const analyzeFromText = asyncHandler(async (req, res) => {
+exports.analyzeFromText = asyncHandler(async (req, res) => {
   const { text } = req.body;
   
   const result = await analyzeText(text);
@@ -19,7 +19,7 @@ export const analyzeFromText = asyncHandler(async (req, res) => {
 });
 
 
-export const analyzeFromFile = asyncHandler(async (req, res) => {
+exports.analyzeFromFile = asyncHandler(async (req, res) => {
   const { fileId } = req.params;
   if (!mongoose.isValidObjectId(fileId)) {
     return res.status(400).json({ message: "Invalid fileId" });
@@ -40,7 +40,7 @@ export const analyzeFromFile = asyncHandler(async (req, res) => {
 });
 
 
-export const listMyAnalyses = asyncHandler(async (req, res) => {
+exports.listMyAnalyses = asyncHandler(async (req, res) => {
   const items = await Analysis.find({ user: req.user._id })
     .sort({ createdAt: -1 })
     .select("-__v");
@@ -48,7 +48,7 @@ export const listMyAnalyses = asyncHandler(async (req, res) => {
 });
 
 
-export const getAnalysis = asyncHandler(async (req, res) => {
+exports.getAnalysis = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (!mongoose.isValidObjectId(id)) {
     return res.status(400).json({ message: "Invalid id" });
