@@ -10,7 +10,7 @@ const signToken = (userId) =>
 exports.Register = async (req, res) => {
   const { fullname, email, password } = req.body;
 
-  if (![fullname, email, password]) {
+  if (!fullname || !email || !password) {
     return res
       .status(400)
       .json({ message: "fullname, email, password required" });
@@ -46,13 +46,28 @@ exports.Login = async (req, res) => {
   }
   const token = signToken(user._id);
   res.cookie("Token", token);
-  res.status(201).json({
-    message: "User LoggedIn Succesfully",
-    token,
-  });
+  res.status(200).json({
+  message: "User LoggedIn Succesfully",
+  user: { id: user._id, fullname: user.fullname, email: user.email },
+  token,
+});
 };
 
 
 exports.me = (req, res) => {
   res.json({ user: req.user });
 };
+
+
+exports.Logout = (req , res) =>{
+  try {
+        res.clearCookie("Token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
+res.status(201).json({Message:"User LoggedOut Succesfully"})
+  } catch (error) {
+    res.status(500).json({Message:error.message, error})
+  }
+}
