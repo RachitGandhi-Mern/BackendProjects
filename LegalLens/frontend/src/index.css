@@ -1,0 +1,30 @@
+
+@import "tailwindcss";
+
+/* Optional: your CSS variables */
+:root {
+  --bg: #ffffff;
+  --text: #0b1120;
+  --muted: #6b7280;
+}
+
+.dark {
+  --bg: #000000;
+  --text: #e6eef8;
+  --muted: #94a3b8;
+}
+
+/* Body uses the variables */
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Input example */
+.input {
+  padding: 0.6rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+}
