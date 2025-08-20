@@ -4,10 +4,11 @@ import {login} from '../../Features/authSlice'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { LogIn, Mail, Lock } from 'lucide-react'
+import useTheme from '../../utils/theme'
 
 export default function Login(){
   const [email, setEmail] = useState(''), [password, setPassword] = useState('')
-  const [theme, setTheme] = useState('dark')
+    const { theme } = useTheme()
   const dispatch = useDispatch()
   const nav = useNavigate()
 
