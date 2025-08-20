@@ -3,7 +3,17 @@ const UserModel = require('../Model/User.model')
 
 exports.ProtectedRoute = async(req,res,next) =>{
     try {
-        const token = req.cookies.Token
+        let token;
+
+    // Token from cookies
+    if (req.cookies && req.cookies.Token) {
+      token = req.cookies.Token;
+    }
+
+    // Token from Authorization header
+    else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
     if(!token){
         return res.status(401).json({message:"Unauthrised"})
     }
