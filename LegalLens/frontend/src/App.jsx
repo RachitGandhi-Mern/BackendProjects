@@ -7,7 +7,6 @@ import Register from './Pages/Auth/Register'
 import Dashboard from './Pages/Dashboard'
 import AnalysisView from './Pages/AnalysisView'
 import Layout from './Components/Layout'
-import  useTheme  from './utils/theme'
 import { Toaster } from 'react-hot-toast'
 
 // ProtectedRoute component
@@ -20,9 +19,7 @@ const ProtectedRoute = ({ children }) => {
 }
 
 export default function App() {
-  const { init } = useTheme()
-  useEffect(() => init(), [])
-
+  
   return (
     <>
       <Toaster />

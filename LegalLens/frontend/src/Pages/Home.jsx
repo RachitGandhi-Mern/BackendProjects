@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FileText, Shield, Zap, ArrowRight, Users, Clock, Award } from 'lucide-react';
-
+import {useTheme} from '../Context/ThemeContext'
 export default function Home() {
   const [token, setToken] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const { theme } = useTheme()
 
   const isDark = theme === 'dark';
 
@@ -11,7 +11,7 @@ export default function Home() {
     <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
       
       {/* Hero Section */}
-      <main className="max-w-6xl mx-auto px-8">
+      <main className="max-w-6xl mx-auto ">
         <section className="pt-20 pb-12">
           <div className="max-w-4xl">
 

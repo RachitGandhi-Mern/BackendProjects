@@ -9,15 +9,15 @@ import {
 } from "../Features/analysisSlice";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import useTheme from "../utils/theme";
 import { FileText, Upload, Clock, Trash2, Eye, Plus } from "lucide-react";
+import {useTheme} from '../Context/ThemeContext'
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   const analyses = useSelector((s) => s.analysis.items || []);
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
-  const { theme } = useTheme();  // reactive theme
+  const { theme } = useTheme()
   const isDark = theme === "dark";
 
   useEffect(() => {

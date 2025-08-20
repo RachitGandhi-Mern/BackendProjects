@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getAnalysis } from '../Features/analysisSlice'
 import { FileText, Shield, AlertTriangle, CheckCircle } from 'lucide-react'
-
+import {useTheme} from '../Context/ThemeContext'
 export default function AnalysisView() {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { current: doc, status, error } = useSelector(s => s.analysis)
-  const [theme, setTheme] = useState('dark')
+  const { theme } = useTheme()
+
 
   const isDark = theme === 'dark'
 

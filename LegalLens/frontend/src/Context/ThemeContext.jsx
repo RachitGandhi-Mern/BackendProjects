@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 
-export const useTheme = () => {
+const ThemeContext = createContext()
+
+export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "dark"
   })
 
-  // Apply theme whenever it changes
+  // Apply theme globally on <html>
   useEffect(() => {
     const root = document.documentElement
     if (theme === "dark") {
@@ -16,12 +18,16 @@ export const useTheme = () => {
     localStorage.setItem("theme", theme)
   }, [theme])
 
-  // Toggle theme
   const toggle = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"))
   }
 
-  return { theme, setTheme, toggle }
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  )
 }
 
-export default useTheme
+// custom hook for easy use
+export const useTheme = () => useContext(ThemeContext)
