@@ -41,7 +41,14 @@ function initSocketServer(httpServer) {
 
 
 socket.on('ai-message',async(messagePayload)=>{
-  console.log(messagePayload);
+const content = await messagePayload.message
+  const Response = await aiService(content)
+  
+
+ socket.emit("ai-response", {
+          Chat: content,
+          Responses: Response,
+        });
 
 })
 
