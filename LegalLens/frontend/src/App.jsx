@@ -8,6 +8,8 @@ import Dashboard from './Pages/Dashboard'
 import AnalysisView from './Pages/AnalysisView'
 import Layout from './Components/Layout'
 import { Toaster } from 'react-hot-toast'
+import PromptInputWithActions from './Pages/LegalChat'
+
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -45,7 +47,16 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/LegalChat"
+          element={
+            <ProtectedRoute>
+              <Layout><PromptInputWithActions/></Layout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+      
     </>
   )
 }

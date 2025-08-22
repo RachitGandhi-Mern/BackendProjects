@@ -51,6 +51,19 @@ export default function Navbar() {
           >
             Dashboard
           </Link>
+            <Link
+            to="/LegalChat"
+            onClick={() => setIsOpen(false)}
+            className="relative px-4 py-1 rounded-xl font-medium tracking-wide 
+             text-white bg-gradient-to-r from-gray-900  to-black
+             border shadow-[0_4px_20px_rgba(0,0,0,0.4)]
+             hover:shadow-[0_0_20px_rgba(255,215,0,0.6)]
+             hover:border-yellow-400
+             transition-all duration-500 ease-in-out
+             overflow-hidden group"
+          >
+            Ai Chat
+          </Link>
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
@@ -103,6 +116,19 @@ export default function Navbar() {
           >
             Dashboard
           </Link>
+          <Link
+            to="/LegalChat"
+            onClick={() => setIsOpen(false)}
+            className="relative px-4 py-1 rounded-xl font-medium tracking-wide 
+             text-white bg-gradient-to-r from-gray-900  to-black
+             border shadow-[0_4px_20px_rgba(0,0,0,0.4)]
+             hover:shadow-[0_0_20px_rgba(255,215,0,0.6)]
+             hover:border-yellow-400
+             transition-all duration-500 ease-in-out
+             overflow-hidden group"
+          >
+            Ai Chat
+          </Link>
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
@@ -134,3 +160,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
