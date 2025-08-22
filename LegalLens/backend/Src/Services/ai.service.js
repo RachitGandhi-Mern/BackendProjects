@@ -47,16 +47,14 @@ exports.analyzeText = async (text) => {
       model: modelName,
       contents: `${systemPrompt}\n\n${userPrompt}`,
       config: {
-        temperature: 0.2,
+        temperature: 0.1,
         maxOutputTokens: 1024,
       },
     });
 
-    // Extract text response
     let textPart = response.text || "";
     textPart = textPart.replace(/```json/gi, "").replace(/```/g, "").trim();
 
-    // Parse JSON safely
     const parsed = JSON.parse(textPart);
 
     return {
