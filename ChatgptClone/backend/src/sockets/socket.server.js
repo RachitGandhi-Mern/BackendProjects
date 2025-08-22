@@ -2,8 +2,9 @@ const { Server } = require("socket.io");
 const cookie = require("cookie");
 const jwt = require("jsonwebtoken");
 const userModel = require("../Models/User.model");
-const aiService = require('../Services/ai.service');
-const { response } = require("../app");
+const aiService = require("../Services/ai.service");
+const messageModel = require("../Models/Message.model");
+// const chatModel = require("../Models/Chat.model");
 
 function initSocketServer(httpServer) {
   const io = new Server(httpServer, {
@@ -16,7 +17,7 @@ function initSocketServer(httpServer) {
   io.use(async (socket, next) => {
     try {
       const cookies = cookie.parse(socket.handshake.headers?.cookie || "");
-      const token = cookies.Token; 
+      const token = cookies.Token;
 
       if (!token) {
         return next(new Error("Authentication error: Token missing"));
@@ -37,26 +38,52 @@ function initSocketServer(httpServer) {
   });
 
   io.on("connection", (socket) => {
-    console.log("✅ New Socket Connected:", socket.id, "User:", socket.user?.email);
+    console.log(
+      "✅ New Socket Connected:",
+      socket.id,
+      "User:",
+      socket.user?.email
+    );
 
+    socket.on("ai-message", async (messagePayload) => {
+      const content = await messagePayload;
 
-socket.on('ai-message',async(messagePayload)=>{
-const content = await messagePayload.message
-  const Response = await aiService(content)
-  
+      await messageModel.create({
+        user: socket.user._id,
+        chat: messagePayload.chat,
+        content: content.message,
+        role: "user",
+      });
 
- socket.emit("ai-response", {
-          Chat: content,
-          Responses: Response,
-        });
+      const chatHistory = await messageModel.find({
+        chat: messagePayload.chat,
+      });
 
-})
+      const Response = await aiService(
+        chatHistory.map((item) => {
+          return {
+            role: item.role,
+            parts: [{ text: item.content }],
+          };
+        })
+      );
 
+      await messageModel.create({
+        user: socket.user._id,
+        chat: messagePayload.chat,
+        content: Response,
+        role: "model",
+      });
+
+      socket.emit("ai-response", {
+        Chat: content,
+        Responses: Response,
+        Time: new Date().getHours() + ":" + new Date().getMinutes(),
+      });
+    });
   });
 
   return io;
-
-
 }
 
 module.exports = initSocketServer;
