@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../Models/User.model");
 const aiService = require("../Services/ai.service");
 const messageModel = require("../Models/Message.model");
-// const chatModel = require("../Models/Chat.model");
+const chatModel = require("../Models/Chat.model");
 const {
   createMemoryVector,
   queryMemoryVector,

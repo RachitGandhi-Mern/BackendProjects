@@ -1,10 +1,10 @@
-// Import the Pinecone library
+
 const { Pinecone } = require('@pinecone-database/pinecone')
 
-// Initialize a Pinecone client with your API key
+
 const pc = new Pinecone({ apiKey: process.env.YOUR_API_KEY });
 
-// Create a dense index with integrated embedding
+
 const GptCloneIndex = pc.Index("chatgpt-clone")
 
 exports.createMemoryVector = async({vector , metadata , messageId}) => {
