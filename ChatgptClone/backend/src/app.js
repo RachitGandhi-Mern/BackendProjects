@@ -14,16 +14,20 @@ const chatRoute = require('./Routes/chat.Route')
 
 app.use(express.json())
 app.use(cookieParser())
+
+
 app.use(
   cors({
-    origin:["http://localhost:5173",
-     "https://ai--chatgpt.vercel.app/"
+    origin: [
+      "http://localhost:5173",
+      "https://ai--chatgpt.vercel.app"  
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.options("*", cors());
 
 
 // Using AuthRoutes
