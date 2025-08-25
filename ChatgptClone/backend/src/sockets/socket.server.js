@@ -74,6 +74,7 @@ function initSocketServer(httpServer) {
         },
       });
 
+
       const [Memory, chatHistory] = await Promise.all([
         queryMemoryVector({
           queryVector: vectors,
