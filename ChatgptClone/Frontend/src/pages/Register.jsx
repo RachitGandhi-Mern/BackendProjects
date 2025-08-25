@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../store/slices/authSlice";
+import { registerUser } from "../Store/Slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft, FaApple, FaPhone } from "react-icons/fa";
