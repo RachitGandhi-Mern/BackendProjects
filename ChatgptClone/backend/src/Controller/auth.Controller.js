@@ -18,7 +18,12 @@ exports.Register = async (req, res) => {
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    res.cookie("Token", token);
+    res.cookie("Token", token,{
+      httpOnly: true,
+      secure: true,          
+  sameSite: "none",     
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
     res.status(201).json({ messgae: "User Registed Succesfully" });
     console.log(newUser);
   } catch (error) {
@@ -46,7 +51,7 @@ exports.Login = async (req, res) => {
     });
     res.cookie("Token", token, {
       httpOnly: true,
-      secure: false,          
+      secure: true,          
   sameSite: "none",     
   maxAge: 7 * 24 * 60 * 60 * 1000,
 

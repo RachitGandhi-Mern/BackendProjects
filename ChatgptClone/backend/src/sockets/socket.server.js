@@ -15,6 +15,7 @@ function initSocketServer(httpServer) {
         cors: {
             origin: "https://ai--chatgpt.vercel.app",
             allowedHeaders: [ "Content-Type", "Authorization" ],
+            methods: ["GET", "POST"],
             credentials: true
         }
     });
