@@ -12,11 +12,12 @@ const {
 
 function initSocketServer(httpServer) {
   const io = new Server(httpServer, {
-    cors: {
-      origin: "*",
-      credentials: true,
-    },
-  });
+        cors: {
+            origin: "http://localhost:5173",
+            allowedHeaders: [ "Content-Type", "Authorization" ],
+            credentials: true
+        }
+    });
 
   io.use(async (socket, next) => {
     try {
@@ -85,7 +86,8 @@ function initSocketServer(httpServer) {
           .find({ chat: messagePayload.chat })
           .sort({ createdAt: -1 })
           .limit(5)
-          .lean(),
+          .lean().then(messages => messages.reverse()),
+          
       ]);
 
       const stm = chatHistory.map((item) => {
