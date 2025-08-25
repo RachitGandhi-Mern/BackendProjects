@@ -9,7 +9,7 @@ let socket;
 
 export function initSocket() {
   if (socket) return socket;
-  socket = io(import.meta.env.SOCKET_API_BASE_URL, {
+  socket = io("https://backendprojects-1.onrender.com", {
     withCredentials: true,
     autoConnect: true,
   });
